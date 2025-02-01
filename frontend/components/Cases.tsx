@@ -1,4 +1,7 @@
 import React from "react";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { ArrowRightIcon } from "lucide-react";
 
 
 
@@ -17,6 +20,13 @@ export const Cases = () => {
           fingertips. Stay informed, stay safe, and be a part of the collective
           effort to create a more secure environment for everyone.
         </p>
+
+        <Button className="p-7 text-lg mt-8" >
+            <Link href="/all-case" className="text-white">
+                View All Cases
+                </Link>
+                <ArrowRightIcon className="w-6 h-6" />
+        </Button>
       </div>
 
       <div className="w-[50%] flex flex-col justify-center items-center gap-5">

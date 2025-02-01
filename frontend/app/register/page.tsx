@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Upload, Users } from "lucide-react";
+import { ArrowLeft, ArrowLeftIcon, ArrowRight, Upload, Users } from "lucide-react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -287,11 +287,15 @@ export default function RegisterCase() {
       <header className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-2">
-            <Link href="/">
+            
+            <Link href="/" className="flex gap-5 items-center" >
+            
               <Users className="h-8 w-8 text-blue-600" />
+              <ArrowLeftIcon />
             </Link>
+            
             <span className="text-xl font-bold ">
-              Register Missing Person Case
+               Register Missing Person Case
             </span>
           </div>
         </div>
