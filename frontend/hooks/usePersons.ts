@@ -42,9 +42,9 @@ export function usePersons() {
     async function fetchPersons() {
       try {
         const querySnapshot = await getDocs(collection(db, "users"))
-        console.log(querySnapshot);
+        /* console.log(querySnapshot); */
         const personsData = querySnapshot.docs.map((doc) => doc.data() as Person)
-        console.log(personsData);
+        /* console.log(personsData); */
         setPersons(personsData)
         setLoading(false)
       } catch (err) {
