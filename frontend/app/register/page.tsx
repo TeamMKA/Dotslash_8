@@ -149,6 +149,30 @@ export default function RegisterCase() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  const uploadImageToServer = async (selectedImage: string) => {
+    try {
+        const response = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                image: selectedImage,
+                filename: 'uploaded-image.jpg',
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Image upload failed');
+        }
+
+        const { url } = await response.json();
+        return url;
+    } catch (error) {
+        console.error('Upload error:', error);
+        throw error;
+    }
+};
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -201,6 +225,7 @@ export default function RegisterCase() {
   };
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    console.log("Submitting form data:", formData);
     handleSubmit(event as unknown as React.FormEvent<HTMLFormElement>);
   };
 
@@ -222,54 +247,56 @@ export default function RegisterCase() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Submitting form data:", formData);
-    await addDoc(collection(db, "users"), formData);
-
-    if (!validateStep(currentStep)) {
-      return;
-    }
+    console.log("Front face URL:", frontFaceUrl);
+    
+    // if (!validateStep(currentStep)) {
+    //   return;
+    // }
 
     setIsSubmitting(true);
     try {
       // Create FormData for file uploads
-      const formDataToSubmit = new FormData();
+      // const formDataToSubmit = new FormData();
 
-      // Append all form data
-      Object.entries(formData).forEach(([key, value]) => {
-        if (typeof value === "object" && value !== null) {
-          formDataToSubmit.append(key, JSON.stringify(value));
-        } else {
-          formDataToSubmit.append(key, value.toString());
-        }
-      });
+      // // Append all form data
+      // Object.entries(formData).forEach(([key, value]) => {
+      //   if (typeof value === "object" && value !== null) {
+      //     formDataToSubmit.append(key, JSON.stringify(value));
+      //   } else {
+      //     formDataToSubmit.append(key, value.toString());
+      //   }
+      // });
 
-      // Upload files to Firebase Storage
-      // const frontFaceInput = document.getElementById("front-face-upload") as HTMLInputElement;
-      // const fullBodyInput = document.getElementById("full-body-upload") as HTMLInputElement;
-      // const docInput = document.getElementById("doc-upload") as HTMLInputElement;
 
-      // const uploadPromises = [];
+      let image;
+      
+      if (frontFaceUrl) {
+        console.log("Uploading front face image...");
+        const response = await fetch(frontFaceUrl);
+        const blob = await response.blob();
+        const base64 = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(blob);
+        });
 
-      // if (frontFaceInput?.files?.[0]) {
-      //   const frontFaceRef = ref(storage, `uploads/frontFace/${frontFaceInput.files[0].name}`);
-      //   uploadPromises.push(uploadBytes(frontFaceRef, frontFaceInput.files[0]));
-      // }
-      // if (fullBodyInput?.files?.[0]) {
-      //   const fullBodyRef = ref(storage, `uploads/fullBody/${fullBodyInput.files[0].name}`);
-      //   uploadPromises.push(uploadBytes(fullBodyRef, fullBodyInput.files[0]));
-      // }
-      // if (docInput?.files?.[0]) {
-      //   const docRef = ref(storage, `uploads/documents/${docInput.files[0].name}`);
-      //   uploadPromises.push(uploadBytes(docRef, docInput.files[0]));
-      // }
+        
+        image = await uploadImageToServer(base64);
+      }
+      console.log("Image URL:", image);
+      
+      const finalFormData = {
+        ...formData,
+        image: image,
+        submittedAt: new Date().toISOString(),
+      };
+  
+      // Save to Firestore
+      await addDoc(collection(db, "users"), finalFormData);
+  
+      // Show success message
+      alert("Form submitted successfully!");
 
-      // Wait for all uploads to complete
-      // await Promise.all(uploadPromises);
-
-      // Save form data to Firestore
-      await addDoc(collection(db, "users"), formData);
-      alert("Data uploaded successfully!");
-      // Handle success
-      alert("Case registered successfully!");
       window.location.href = "/case-submitted";
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -444,7 +471,7 @@ export default function RegisterCase() {
                       <Label htmlFor="complexion">Complexion</Label>
                       <Select
                         value={formData.complexion}
-                        onValueChange={(value) =>
+                        onValueChange={(value: string) =>
                           handleSelectChange("complexion", value)
                         }
                       >
@@ -503,7 +530,7 @@ export default function RegisterCase() {
                             checked={formData.medicalConditions.includes(
                               condition
                             )}
-                            onCheckedChange={(checked) =>
+                            onCheckedChange={(checked: boolean) =>
                               handleCheckboxChange(
                                 `medical-${condition.toLowerCase()}`,
                                 checked as boolean
