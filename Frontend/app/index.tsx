@@ -28,7 +28,7 @@ export default function App() {
         <View className="w-full flex justify-center items-center h-full px-4">
           <View className="w-full">
             <Image
-              source={images.logo}
+              source={images.path}
               className="w-full h-[150px]"
               resizeMode="contain"
             />
@@ -36,7 +36,7 @@ export default function App() {
           </View>
           <View className="shadow-2xl w-full">
             <Image
-              source={images.cards}
+              source={images.path}
               className="ml-2 mr-4 max-w-[800px] w-full h-[298px] "
               resizeMode="cover"
             />
@@ -46,7 +46,7 @@ export default function App() {
             <Text className="text-3xl text-slate-700 font-bold text-center">
               Feel Safe {"           \n              "}
               Feel Free{"                   "}
-              <Text className=" text-secondary-200">Navनारी</Text>
+              <Text className=" text-secondary-200">SafeRakshak</Text>
             </Text>
 
             <Image
@@ -57,12 +57,12 @@ export default function App() {
           </View>
 
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Empowering Safety with Navनारी:                    Step into a World of Boundless Security and Confidence.
+            Empowering Safety with SafeRakshak:                    Step into a World of Boundless Security and Confidence.
           </Text>
 
           <CustomButton
             title="Continue with Email"
-            handlePress={() => router.push("/home")}
+            handlePress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7" textStyles={undefined} isLoading={undefined}          />
         </View>
       </ScrollView>

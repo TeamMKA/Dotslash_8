@@ -46,7 +46,7 @@ const SignIn = () => {
   return (
     <View className="flex-1 justify-center items-center bg-white p-6">
       <Image 
-        source={images.logo}
+        source={images.path}
         className="w-full h-[150px]"
         resizeMode="contain"
       />
