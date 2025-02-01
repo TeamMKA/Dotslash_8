@@ -44,9 +44,9 @@ const config = {
   			blue: {
   				'100': '#E4ECFF'
   			},
-        yellow: {
-          '400': '#ffcd00',
-        },
+  			yellow: {
+  				'400': '#ffcd00'
+  			},
   			purple: '#CBACF9',
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
