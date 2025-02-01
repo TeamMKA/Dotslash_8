@@ -19,8 +19,8 @@ export default function Home() {
       label: "Report",
     },
     {
-      href: "/Accidents",
-      label: "Resources",
+      href: "/all-case",
+      label: "All Cases",
     },
   ];
   return (
