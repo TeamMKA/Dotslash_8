@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar"; 
 import { Redirect, Tabs } from "expo-router";
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, StyleSheet } from "react-native";
 
 import { icons } from "../../constants";
 // import { Loader } from "../../components";
@@ -8,17 +8,14 @@ import { icons } from "../../constants";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View className="flex items-center justify-center gap-2">
+    <View style={styles.tabIconContainer}>
       <Image
         source={icon}
         resizeMode="contain"
         tintColor={color}
-        className="w-6 h-6"
+        style={styles.icon}
       />
-      <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
-        style={{ color: color }}
-      >
+      <Text style={[styles.text, { color: color, fontWeight: focused ? "600" : "400" }]}>
         {name}
       </Text>
     </View>
@@ -26,10 +23,6 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabLayout = () => {
-  // const { loading, isLogged } = useGlobalContext();
-
-  // if (!loading && !isLogged) return <Redirect href="/sign-in" />;
-
   return (
     <>
       <Tabs
@@ -37,12 +30,7 @@ const TabLayout = () => {
           tabBarActiveTintColor: "#FFA001",
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarShowLabel: false,
-          tabBarStyle: {
-            backgroundColor: "#161622",
-            borderTopWidth: 1,
-            borderTopColor: "#232533",
-            height: 84,
-          },
+          tabBarStyle: styles.tabBar,
         }}
       >
         <Tabs.Screen
@@ -93,8 +81,7 @@ const TabLayout = () => {
           }}
         />
 
-
-      <Tabs.Screen
+        <Tabs.Screen
           name="create"
           options={{
             title: "CreateIncident",
@@ -110,12 +97,30 @@ const TabLayout = () => {
           }}
         />
       </Tabs>
-      
-
-      {/* <Loader isLoading={loading} /> */}
       <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  tabIconContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 2,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  text: {
+    fontSize: 12,
+  },
+  tabBar: {
+    backgroundColor: "#161622",
+    borderTopWidth: 1,
+    borderTopColor: "#232533",
+    height: 84,
+  },
+});
 
 export default TabLayout;

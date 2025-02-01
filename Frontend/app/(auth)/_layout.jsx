@@ -1,8 +1,9 @@
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-
-// import { Loader } from "../../components";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useGlobalContext } from "../../context/GlobalProvider";
+import Loader from '../../components/Loader'; // Adjust the path based on your file structure
 
 const AuthLayout = () => {
   const { loading, isLogged } = useGlobalContext();
@@ -10,7 +11,7 @@ const AuthLayout = () => {
   if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
-    <>
+    <View style={styles.container}>
       <Stack>
         <Stack.Screen
           name="sign-in"
@@ -28,8 +29,14 @@ const AuthLayout = () => {
 
       {/* <Loader isLoading={loading} /> */}
       <StatusBar backgroundColor="#161622" style="light" />
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default AuthLayout;

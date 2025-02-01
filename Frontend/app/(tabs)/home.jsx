@@ -8,6 +8,7 @@ import {
   Image,
   RefreshControl,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
 import PostCard from "../../components/PostCard"; // Import PostCard component
 import { icons, images } from "../../constants";
@@ -55,7 +56,7 @@ const Home = () => {
       const response = await axios.get(
         "https://vt9hf745-4000.inc1.devtunnels.ms/api/posts/get-post"
       );
-      //console.log("Fetched post data:", response.data.data); // Debugging line
+      console.log("Fetched post data:", response.data.data); // Debugging line
 
       // Assuming response.data is an array of post objects
       if (response.data.data && response.data.data.length > 0) {
@@ -76,59 +77,37 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FAF7F0] mt-10">
+    <SafeAreaView style={styles.container}>
       <ScrollView
-        contentContainerStyle="flex-grow p-4"
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={fetchData} // Call fetchData when user pulls to refresh
-          />
-        }
+        contentContainerStyle={styles.scrollView}
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={fetchData} />}
       >
-        <View className="mt-10 flex-row justify-between mx-3">
+        <View style={styles.header}>
           <View>
-            <Text className="text-xl text-gray-500">Hello, </Text>
-            <Text className="text-2xl font-extrabold">
-              Hi{" "}
-              {user?.data?.user?.username ? user.data.user.username : "Guest"}
-            </Text>
+            <Text style={styles.greeting}>Hello,</Text>
+            <Text style={styles.username}>Hi {user?.data?.user?.username || "Guest"}</Text>
           </View>
-
           <TouchableOpacity onPress={() => router.push("/profile")}>
-            <Image source={images.profile} className="rounded-full h-16 w-16" />
+            <Image source={images.profile} style={styles.profileImage} />
           </TouchableOpacity>
         </View>
 
-        <View className="bg-orange-400 rounded-md mx-4 mt-12 p-4">
-          <View className="flex-row justify-around items-center">
-            <Image
-              source={icons.location_marker}
-              className="h-16 w-16 rounded-full"
-            />
-            <Text className="text-white font-psemibold text-xl">
-              Your Location
-            </Text>
+        <View style={styles.locationBox}>
+          <View style={styles.locationContent}>
+            <Image source={icons.location_marker} style={styles.icon} />
+            <Text style={styles.locationText}>Your Location</Text>
           </View>
-          <Text className="text-white font-pmedium text-right mr-12">
-            Bandra
-          </Text>
+          <Text style={styles.locationName}>Bandra</Text>
         </View>
 
-        <View className="flex-row flex-wrap mt-8">
+        <View style={styles.cardContainer}>
           {cardData.map((card, index) => (
-            <View key={index} className="w-1/3 p-2">
-              <HomePageCard
-                title={card.title}
-                img={card.img}
-                link={card.link}
-              />
+            <View key={index} style={styles.cardWrapper}>
+              <HomePageCard title={card.title} img={card.img} link={card.link} />
             </View>
           ))}
         </View>
-
-        {/* Nearest Posts Section */}
-        {/* <View className="mx-4 mt-5">
+         <View className="mx-4 mt-5">
           <Text className="font-pbold text-xl mb-4">Nearest Posts</Text>
           {postData && postData.length > 0 ? (
             postData.map((post) => (
@@ -140,10 +119,78 @@ const Home = () => {
           ) : (
             <Text className="text-gray-500">No posts available.</Text>
           )}
-        </View> */}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f9e8c1",
+    paddingTop: 8,
+  },
+  scrollView: {
+    flexGrow: 1,
+    padding: 16,
+  },
+  header: {
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 12,
+  },
+  greeting: {
+    fontSize: 18,
+    color: "gray",
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  profileImage: {
+    borderRadius: 50,
+    height: 64,
+    width: 64,
+  },
+  locationBox: {
+    backgroundColor: "orange",
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginTop: 12,
+    padding: 16,
+  },
+  locationContent: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  icon: {
+    height: 64,
+    width: 64,
+    borderRadius: 50,
+  },
+  locationText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  locationName: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "right",
+    marginRight: 48,
+  },
+  cardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16,
+  },
+  cardWrapper: {
+    width: "33.33%",
+    padding: 8,
+  },
+});
 
 export default Home;
