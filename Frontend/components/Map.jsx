@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Button, ActivityIndicator, Text, TouchableOpacity, Image } from "react-native";
 import MapView, { UrlTile, Marker } from "react-native-maps";
 import axios from "axios";
-import { images } from "../../constants";
+import { images } from "../constants";
 
 const MapScreen = () => {
   const mapTilerAPIKey = "aHUEnRceg03OQys2K9jt";
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
       { translateX: -150 }, // Half of width
       { translateY: -100 }, // Half of height
     ],
-    width: 300,
+    maxWidth: 300,
     backgroundColor: 'white',
     borderRadius: 10,
     elevation: 5,
