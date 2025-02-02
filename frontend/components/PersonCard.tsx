@@ -4,8 +4,8 @@ import Link from "next/link"
 
 export  function PersonCard({ person }: { person: Person }) {
   return (
-   <Link href={`/person/${person.age}`}>
-     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+   <Link href={`/person/${person.adhaar}`}>
+     <div className="bg-white shadow-lg rounded-lg z-10 border  border-black-100 overflow-hidden">
       <div className="relative h-48">
         <Image src={person.image || "/placeholder.svg"} alt={person.fullName} layout="fill" objectFit="cover" />
       </div>

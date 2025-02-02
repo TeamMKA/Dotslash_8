@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs , query, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import type { Person } from "@/hooks/usePersons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,14 +22,16 @@ export default function PersonProfile() {
     const fetchPerson = async () => {
       try {
         if (typeof slug === "string") {
-          const docRef = doc(db, "users", slug);
-          const docSnap = await getDoc(docRef);
-
-          if (docSnap.exists()) {
-            setPerson({
-              ...docSnap.data(),
-              id: docSnap.id,
-            } as unknown as Person);
+          const q = query(collection(db, "users"), where("adhaar", "==", slug));
+          const querySnapshot = await getDocs(q);
+  
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              setPerson({
+                ...doc.data(),
+                id: doc.id,
+              } as unknown as Person);
+            });
           } else {
             setError("Person not found");
           }
@@ -42,7 +45,7 @@ export default function PersonProfile() {
         setLoading(false);
       }
     };
-
+  
     if (slug) {
       fetchPerson();
     }
@@ -61,7 +64,7 @@ export default function PersonProfile() {
   return (
     <>
       <AnimatedNavbar items={navItems} />
-      <div className="container mx-auto px-4 py-8 mt-[10rem]">
+      <div className="container mx-auto px-4 py-8 border bg-white  z-[5000] mt-[4rem]">
         <Card className="w-full max-w-4xl mx-auto">
           <CardHeader className="flex flex-col items-center space-y-4">
             <Avatar className="w-32 h-32">
