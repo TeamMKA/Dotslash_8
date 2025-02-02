@@ -19,8 +19,8 @@ export default function Home() {
       label: "Report",
     },
     {
-      href: "/all-case",
-      label: "All Cases",
+      href: "/report-found",
+      label: "Found",
     },
   ];
   return (
