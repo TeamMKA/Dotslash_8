@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
+import { Button } from "@/components/ui/button";
 
 export default function PersonProfile() {
   const { slug } = useParams();
@@ -63,9 +64,12 @@ export default function PersonProfile() {
 
   return (
     <>
-      <AnimatedNavbar items={navItems} />
-      <div className="container mx-auto px-4 py-8 border bg-white  z-[5000] mt-[4rem]">
+      <AnimatedNavbar items={navItems} className="z-[5001]"  />
+      <div className="container relative mx-auto px-4 py-8 border bg-white  z-[5000] mt-[4rem]">
         <Card className="w-full max-w-4xl mx-auto">
+            <Button className="bg-yellow-500 absolute right-10 top-10 text-white hover:bg-yellow-600">
+                Download Report
+            </Button>
           <CardHeader className="flex flex-col items-center space-y-4">
             <Avatar className="w-32 h-32">
               <AvatarImage src={person.image} alt={person.fullName} />
