@@ -1,6 +1,6 @@
 
 import { View, Text, StyleSheet, TextInput } from "react-native"
-// import { Picker } from "@react-native-picker/picker"
+import { Picker } from "@react-native-picker/picker"
 
 
 

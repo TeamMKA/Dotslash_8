@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   progressContainer: {
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
   },
   progressText: {

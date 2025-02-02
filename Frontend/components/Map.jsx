@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Button, ActivityIndicator, Text, TouchableOpacity, Image } from "react-native";
 import MapView, { UrlTile, Marker } from "react-native-maps";
 import axios from "axios";
-import { images } from "../../constants";
+import { images } from "../constants";
 
 const MapScreen = () => {
   const mapTilerAPIKey = "aHUEnRceg03OQys2K9jt";

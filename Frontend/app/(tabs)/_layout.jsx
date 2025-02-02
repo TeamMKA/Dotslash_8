@@ -85,7 +85,7 @@ const TabLayout = () => {
           name="create"
           options={{
             title: "CreateIncident",
-            headerShown: true,
+            headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.plus}
@@ -104,22 +104,26 @@ const TabLayout = () => {
 
 const styles = StyleSheet.create({
   tabIconContainer: {
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: 15,
     alignItems: "center",
     justifyContent: "center",
     gap: 2,
+    width: 60,
   },
   icon: {
     width: 24,
     height: 24,
   },
   text: {
-    fontSize: 12,
+    fontSize: 10,
   },
   tabBar: {
     backgroundColor: "#161622",
     borderTopWidth: 1,
     borderTopColor: "#232533",
-    height: 84,
+    height: 90,
   },
 });
 
