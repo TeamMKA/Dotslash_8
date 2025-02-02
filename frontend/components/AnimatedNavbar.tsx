@@ -53,7 +53,7 @@ export default function AnimatedNavbar({
       <nav className="container mx-auto">
         <div className="flex items-center justify-between  ">
           <Link href="/">
-            <h1 className="heading text-yellow-500">Company</h1>{" "}
+            <h1 className="heading text-yellow-500">Reunite</h1>{" "}
           </Link>
           <ul className="flex items-center justify-center gap-8">
             {items.map((item) => (

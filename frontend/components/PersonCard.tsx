@@ -1,9 +1,11 @@
 import Image from "next/image"
 import type { Person } from "../hooks/usePersons"
+import Link from "next/link"
 
 export  function PersonCard({ person }: { person: Person }) {
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+   <Link href={`/person/${person.age}`}>
+     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-48">
         <Image src={person.image || "/placeholder.svg"} alt={person.fullName} layout="fill" objectFit="cover" />
       </div>
@@ -19,6 +21,7 @@ export  function PersonCard({ person }: { person: Person }) {
         </div>
       </div>
     </div>
+   </Link>
   )
 }
 

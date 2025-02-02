@@ -74,7 +74,7 @@ export default function MissingPersons() {
 
       <div className="flex flex-col items-center gap-10 mt-10 p-4">
         <h2 className="text-yellow-500 heading">
-          Not Found? Try Matching With Picture
+           Try Matching With Picture
         </h2>
         <p className="text-base">
           Upload a picture of the missing person to find a match
