@@ -15,34 +15,33 @@ export const projects = [
       "Automated facial recognition to compare and match faces against a database, aiding in quick identification and verification.",
     link: "/register",
   },
-  {
+/*   {
     title: "Aadhaar Scanning",
     description:
       "Instantly scan and verify Aadhaar details to authenticate identities and streamline documentation in the search process.",
-    link: "/",
-  },
+    link: "/our-app",
+  }, */
   {
-    title: " 2D-3D Image Conversion for Search",
-    description:
-      "Transform 2D images into 3D models for enhanced visualization, making searches more accurate and efficient.",
-    link: "/",
+    "title": "Age Progression AI",
+    "description": "Experience an advanced AI system that visualizes your future appearance through sophisticated aging simulation.",
+    "link": "/age"
   },
   {
     title: "Safe Route Calculation",
     description:
       "Provides optimized and secure routes for search operations, ensuring safety and efficiency in navigating complex terrains.",
-    link: "/",
+    link: "/our-app",
   },
   {
     title: "AI-Powered Chatbot Helper",
     description:
       "24/7 AI chatbot assistance to guide users through the search process, answer queries, and provide instant support.",
-    link: "/",
+    link: "/our-app",
   },
   {
     title: "Rewards for Finding Missing Persons",
     description:
       "Encouraging participation by offering rewards for verified information that helps in reuniting missing individuals.",
-    link: "/",
+    link: "/gift",
   },
 ];
