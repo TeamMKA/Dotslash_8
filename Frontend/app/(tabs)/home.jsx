@@ -1,57 +1,69 @@
 // HomeScreen.jsx
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  ScrollView, 
-  TouchableOpacity, 
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
   Image,
   TextInput,
   Platform,
-  StatusBar 
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
-import { useGlobalContext } from '../../context/GlobalProvider';
-import { images } from '../../constants';
-import { router } from 'expo-router';
+  StatusBar,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { icons, images } from "../../constants";
+import { router } from "expo-router";
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useGlobalContext();
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
-  
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Header Section */}
       <View style={styles.header}>
-                <View>
-                  <Text style={styles.greetingText}>Hello, </Text>
-                  <Text style={styles.usernameText}>
-                    Hi {user?.data?.user?.username ? user.data.user.username : "Guest"}
-                  </Text>
-                </View>
-      
-                <TouchableOpacity onPress={() => router.push("/profile")}>
-                  <Image source={images.profile} style={styles.profileImage} />
-                </TouchableOpacity>
-              </View>
+        <View>
+          <Text style={styles.greetingText}>Hello, </Text>
+          <Text style={styles.usernameText}>
+            Hi {user?.data?.user?.username ? user.data.user.username : "Guest"}
+          </Text>
+        </View>
+
+        <TouchableOpacity onPress={() => router.push("/profile")}>
+          <Image source={images.profile} style={styles.profileImage} />
+        </TouchableOpacity>
+      </View>
 
       <ScrollView style={styles.content}>
+        <View style={styles.locationCard}>
+          <View style={styles.locationCardContent}>
+            <Image
+              source={icons.location_marker}
+              style={styles.locationMarkerImage}
+            />
+            <Text style={styles.locationCardText}>Your Location</Text>
+          </View>
+          <Text style={styles.locationText}>Surat</Text>
+        </View>
         {/* Emergency Actions Section */}
         <View style={styles.emergencySection}>
-          <TouchableOpacity 
-            style={[styles.emergencyButton, { backgroundColor: '#FF3B30' }]}
+          <TouchableOpacity
+            style={[styles.emergencyButton, { backgroundColor: "#FF3B30" }]}
             onPress={() => router.push("/create")}
           >
             <MaterialIcons name="person-add" size={32} color="white" />
-            <Text style={styles.emergencyButtonText}>Report Missing Person</Text>
+            <Text style={styles.emergencyButtonText}>
+              Report Missing Person
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[styles.emergencyButton, { backgroundColor: '#34C759' }]}
-            onPress={() => navigation.navigate('ReportSighting')}
+
+          <TouchableOpacity
+            style={[styles.emergencyButton, { backgroundColor: "#34C759" }]}
+            onPress={() => router.push("/mapDisplay")}
           >
             <MaterialIcons name="visibility" size={32} color="white" />
             <Text style={styles.emergencyButtonText}>Report Sighting</Text>
@@ -62,10 +74,11 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.searchSection}>
           <View style={styles.searchBar}>
             <MaterialIcons name="search" size={24} color="#666" />
-            <TextInput 
+            <TextInput
               style={styles.searchInput}
               placeholder="Search by name, location, or case ID"
               placeholderTextColor="#666"
+              onPress={() => router.push("/mapDisplay")}
             />
             <TouchableOpacity>
               <MaterialIcons name="mic" size={24} color="#007AFF" />
@@ -78,15 +91,31 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.actionGrid}>
             {[
-              { icon: 'family-restroom', title: 'Family Registration', route: 'FamilyReg' },
-              { icon: 'location-on', title: 'Track Location', route: 'Tracking' },
-              { icon: 'notification-important', title: 'Alerts', route: 'Alerts' },
-              { icon: 'support-agent', title: 'Contact Support', route: 'Support' },
+              {
+                icon: "family-restroom",
+                title: "Family Registration",
+                route: "FamilyReg",
+              },
+              {
+                icon: "location-on",
+                title: "Track Location",
+                route: "Tracking",
+              },
+              {
+                icon: "notification-important",
+                title: "Alerts",
+                route: "Alerts",
+              },
+              {
+                icon: "support-agent",
+                title: "Contact Support",
+                route: "Support",
+              },
             ].map((action, index) => (
-              <TouchableOpacity 
+              <TouchableOpacity
                 key={index}
                 style={styles.actionItem}
-                onPress={() => navigation.navigate(action.route)}
+                onPress={() => router.push(`/${action.route}`)}
               >
                 <MaterialIcons name={action.icon} size={32} color="#007AFF" />
                 <Text style={styles.actionText}>{action.title}</Text>
@@ -102,9 +131,9 @@ const HomeScreen = ({ navigation }) => {
             {[1, 2, 3].map((item) => (
               <TouchableOpacity key={item} style={styles.caseCard}>
                 <View style={styles.caseImageContainer}>
-                  <Image 
+                  <Image
                     style={styles.caseImage}
-                    source={{ uri: 'https://via.placeholder.com/150' }}
+                    source={{ uri: "https://via.placeholder.com/150" }}
                   />
                   <View style={styles.caseStatus}>
                     <Text style={styles.statusText}>Active</Text>
@@ -123,10 +152,10 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.sectionTitle}>Statistics</Text>
           <View style={styles.statsGrid}>
             {[
-              { number: '150', label: 'Active Cases' },
-              { number: '45', label: 'Found Today' },
-              { number: '1.2K', label: 'Total Resolved' },
-              { number: '300+', label: 'Volunteers' },
+              { number: "150", label: "Active Cases" },
+              { number: "45", label: "Found Today" },
+              { number: "1.2K", label: "Total Resolved" },
+              { number: "300+", label: "Volunteers" },
             ].map((stat, index) => (
               <View key={index} style={styles.statItem}>
                 <Text style={styles.statNumber}>{stat.number}</Text>
@@ -143,14 +172,15 @@ const HomeScreen = ({ navigation }) => {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: '#f9e8c1',
+    backgroundColor: "#f9e8c1",
   },
-  
+
   header: {
-    marginTop: 40,
+    marginTop: 35,
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 12,
+    marginBottom: 6,
   },
   greetingText: {
     fontSize: 20,
@@ -169,48 +199,79 @@ const styles = {
     padding: 8,
   },
   languageSelector: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F0F0F0',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F0F0F0",
     padding: 8,
     borderRadius: 20,
   },
   languageText: {
     marginLeft: 4,
-    color: '#333',
+    color: "#333",
   },
   content: {
     flex: 1,
   },
+  locationCard: {
+    backgroundColor: "#f97316",
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginTop: 48,
+    padding: 16,
+    position: "static",
+  },
+  locationCardContent: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  locationMarkerImage: {
+    height: 64,
+    width: 64,
+    borderRadius: 32,
+  },
+  locationCardText: {
+    color: "#ffffff",
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  locationText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "500",
+    textAlign: "right",
+    marginRight: 48,
+  },
   emergencySection: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 16,
     gap: 12,
+    position: "abolute",
   },
   emergencyButton: {
     flex: 1,
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   emergencyButtonText: {
-    color: 'white',
+    color: "white",
     marginTop: 8,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
   searchSection: {
     padding: 16,
   },
   searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
     padding: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E5E5E5',
+    borderColor: "#E5E5E5",
   },
   searchInput: {
     flex: 1,
@@ -222,115 +283,115 @@ const styles = {
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
-    color: '#333',
+    color: "#333",
   },
   actionGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 16,
   },
   actionItem: {
-    width: '45%',
-    backgroundColor: 'white',
+    width: "45%",
+    backgroundColor: "white",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   actionText: {
     marginTop: 8,
-    color: '#333',
-    textAlign: 'center',
+    color: "#333",
+    textAlign: "center",
   },
   recentCases: {
     padding: 16,
   },
   caseCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 12,
     padding: 12,
     marginRight: 16,
     width: 180,
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   caseImageContainer: {
-    position: 'relative',
+    position: "relative",
   },
   caseImage: {
-    width: '100%',
+    width: "100%",
     height: 120,
     borderRadius: 8,
   },
   caseStatus: {
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     right: 8,
-    backgroundColor: '#FF3B30',
+    backgroundColor: "#FF3B30",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
   },
   statusText: {
-    color: 'white',
+    color: "white",
     fontSize: 12,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   caseName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 8,
-    color: '#333',
+    color: "#333",
   },
   caseLocation: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginTop: 4,
   },
   caseDate: {
     fontSize: 12,
-    color: '#999',
+    color: "#999",
     marginTop: 4,
   },
   statsSection: {
     padding: 16,
   },
   statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 16,
   },
   statItem: {
-    width: '45%',
-    backgroundColor: 'white',
+    width: "45%",
+    backgroundColor: "white",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   statNumber: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
+    fontWeight: "bold",
+    color: "#007AFF",
   },
   statLabel: {
     marginTop: 4,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
   },
 };
 

@@ -50,7 +50,7 @@ const TabLayout = () => {
         />
 
         <Tabs.Screen
-          name="map"
+          name="mapDisplay"
           options={{
             title: "Map",
             headerShown: false,
@@ -65,7 +65,7 @@ const TabLayout = () => {
           }}
         />
 
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="heatmap"
           options={{
             title: "HeatMap",
@@ -79,7 +79,7 @@ const TabLayout = () => {
               />
             ),
           }}
-        />
+        /> */}
 
         <Tabs.Screen
           name="create"

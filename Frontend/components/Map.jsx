@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
       { translateX: -150 }, // Half of width
       { translateY: -100 }, // Half of height
     ],
-    width: 300,
+    maxWidth: 300,
     backgroundColor: 'white',
     borderRadius: 10,
     elevation: 5,
