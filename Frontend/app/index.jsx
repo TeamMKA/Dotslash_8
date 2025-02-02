@@ -59,7 +59,7 @@ export default function App() {
 
           <CustomButton
             title="Continue with Email"
-            handlePress={() => router.push("/home")}
+            handlePress={() => router.push("/sign-in")}
             containerStyles={styles.buttonContainer}
           />
         </View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   videoContainer: {
-    width: '100%',
+    width: '76%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

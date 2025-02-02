@@ -65,22 +65,38 @@ const TabLayout = () => {
           }}
         />
 
-        {/* <Tabs.Screen
+        <Tabs.Screen
           name="heatmap"
           options={{
-            title: "HeatMap",
+            title: "heatMap",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.bookmark}
                 color={color}
-                name="HeatMap"
+                name="heatMap"
                 focused={focused}
               />
             ),
           }}
-        /> */}
+        />
 
+      
+<Tabs.Screen
+          name="incidents"
+          options={{
+            title: "incidents",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.menu}
+                color={color}
+                name="incidents"
+                focused={focused}
+              />
+            ),
+          }}
+        />
         <Tabs.Screen
           name="create"
           options={{
@@ -90,7 +106,7 @@ const TabLayout = () => {
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name="Incidents"
+                name="Report"
                 focused={focused}
               />
             ),

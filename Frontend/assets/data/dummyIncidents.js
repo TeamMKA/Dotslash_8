@@ -9,7 +9,7 @@ const dummyIncidents = [
     fullName: "Rahul Patel",
     description: "Teenager missing near Surat Railway Station",
     image: images.mimg,
-    lastSeen: "2025-01-28 15:30",
+    lastSeen: "2025-02-02 15:30",
     status: "Active"
   },
   {
@@ -20,7 +20,7 @@ const dummyIncidents = [
     fullName: "Priya Sharma",
     description: "Middle-aged woman reported missing from a residential area in Adajan",
     image: images.mimg,
-    lastSeen: "2025-01-28 18:45",
+    lastSeen: "2025-02-02 18:45",
     status: "Active"
   },
   {
@@ -31,7 +31,7 @@ const dummyIncidents = [
     fullName: "Aditya Singh",
     description: "Child missing from VR Surat Mall",
     image: images.mimg,
-    lastSeen: "2025-01-28 14:20",
+    lastSeen: "2025-02-02 14:20",
     status: "Active"
   },
   {
@@ -42,7 +42,7 @@ const dummyIncidents = [
     fullName: "Rajesh Kumar",
     description: "Man missing near Surat bus depot since morning",
     image: images.mimg,
-    lastSeen: "2025-01-28 09:15",
+    lastSeen: "2025-02-02 09:15",
     status: "Active"
   },
   {
@@ -53,7 +53,7 @@ const dummyIncidents = [
     fullName: "Lata Deshmukh",
     description: "Elderly woman reported missing near Athwa Gate, Surat",
     image: images.mimg,
-    lastSeen: "2025-01-28 11:30",
+    lastSeen: "2025-02-02 11:30",
     status: "Active"
   },
   {
@@ -64,7 +64,7 @@ const dummyIncidents = [
     fullName: "Arjun Mehta",
     description: "Young adult missing from a commercial area in Vesu",
     image: images.mimg,
-    lastSeen: "2025-01-28 16:00",
+    lastSeen: "2025-02-02 16:00",
     status: "Active"
   },
   {
@@ -75,7 +75,7 @@ const dummyIncidents = [
     fullName: "James Wilson",
     description: "Tourist missing near Surat International Airport",
     image: images.mimg,
-    lastSeen: "2025-01-28 13:45",
+    lastSeen: "2025-02-02 13:45",
     status: "Active"
   },
   {
@@ -86,7 +86,7 @@ const dummyIncidents = [
     fullName: "Sneha Patil",
     description: "Employee reported missing from office building in Piplod",
     image: images.mimg,
-    lastSeen: "2025-01-28 17:20",
+    lastSeen: "2025-02-02 17:20",
     status: "Active"
   },
   {
@@ -97,7 +97,7 @@ const dummyIncidents = [
     fullName: "Kunal Verma",
     description: "Teenager missing from local cafe near City Light Road",
     image: images.mimg,
-    lastSeen: "2025-01-28 22:30",
+    lastSeen: "2025-02-02 22:30",
     status: "Active"
   },
   {
@@ -108,7 +108,7 @@ const dummyIncidents = [
     fullName: "Mahesh Joshi",
     description: "Man missing after vehicle breakdown near Sarthana Nature Park",
     image: images.mimg,
-    lastSeen: "2025-01-28 20:15",
+    lastSeen: "2025-02-02 20:15",
     status: "Active"
   },
   {
@@ -119,7 +119,7 @@ const dummyIncidents = [
     fullName: "Santosh Yadav",
     description: "Construction worker missing from site near Pal Hazira Road",
     image: images.mimg,
-    lastSeen: "2025-01-28 12:45",
+    lastSeen: "2025-02-02 12:45",
     status: "Active"
   },
   {
@@ -130,7 +130,7 @@ const dummyIncidents = [
     fullName: "Riya Shah",
     description: "Child missing after street light malfunction near Ghod Dod Road",
     image: images.mimg,
-    lastSeen: "2025-01-28 19:30",
+    lastSeen: "2025-02-02 19:30",
     status: "Active"
   }
 ];

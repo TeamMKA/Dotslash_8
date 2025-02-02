@@ -1,5 +1,5 @@
 // HomeScreen.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -15,11 +15,52 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons, images } from "../../constants";
 import { router } from "expo-router";
+import dummyIncidents from "../../assets/data/dummyIncidents";
+import HomePageCard from "../../components/HomePageCard";
+import { db, collection, getDocs } from "../../lib/firebase";
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useGlobalContext();
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
 
+  const [missingChildrenData, setmissingChildrenData] = useState([]);
+  const cardData = [
+    // { title: "Adhaar Verfification", img: icons.adhaar, link: "/adhaar" },
+    { title: "Safest Route", img: icons.safest_route, link: "/heatmap" },
+    { title: "Book A Ride", img: icons.book_a_ride, link: "/book-a-ride" },
+    { title: "Report Case", img: icons.report_incident, link: "/create" },
+    {
+      title: "Safety Alerts",
+      img: icons.safety_alerts,
+      link: "/safety-alerts",
+    },
+    {
+      title: "Educational Resources",
+      img: icons.find_nearby,
+      link: "/educational-resources",
+    },
+    {
+      title: "S. O. S.",
+      img: icons.emergency_contacts,
+      link: "/emergency-contacts",
+    },
+    { title: "Webinars & Drills", img: icons.webinar, link: "/webinar" },
+    // { title: "Chat Bot", img: icons.chat_bot, link: "/chatbot" },
+    { title: "List", img: icons.report_incident, link: "/incidents" },
+  ];
+  const fetchUsers = async () => {
+    try {
+      const usersCollection = collection(db, "users");
+      const snapshot = await getDocs(usersCollection);
+      const usersList = snapshot.docs.map((doc) => doc.data());
+      setmissingChildrenData(usersList);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -87,63 +128,42 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         {/* Quick Actions Grid */}
-        <View style={styles.quickActions}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.actionGrid}>
-            {[
-              {
-                icon: "family-restroom",
-                title: "Family Registration",
-                route: "FamilyReg",
-              },
-              {
-                icon: "location-on",
-                title: "Track Location",
-                route: "Tracking",
-              },
-              {
-                icon: "notification-important",
-                title: "Alerts",
-                route: "Alerts",
-              },
-              {
-                icon: "support-agent",
-                title: "Contact Support",
-                route: "Support",
-              },
-            ].map((action, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.actionItem}
-                onPress={() => router.push(`/${action.route}`)}
-              >
-                <MaterialIcons name={action.icon} size={32} color="#007AFF" />
-                <Text style={styles.actionText}>{action.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+        <View style={styles.cardContainer}>
+          {cardData.map((card, index) => (
+            <View key={index} style={styles.cardWrapper}>
+              <HomePageCard
+                title={card.title}
+                img={card.img}
+                link={card.link}
+              />
+            </View>
+          ))}
         </View>
 
         {/* Recent Cases Section */}
         <View style={styles.recentCases}>
           <Text style={styles.sectionTitle}>Recent Cases</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {[1, 2, 3].map((item) => (
-              <TouchableOpacity key={item} style={styles.caseCard}>
-                <View style={styles.caseImageContainer}>
-                  <Image
-                    style={styles.caseImage}
-                    source={{ uri: "https://via.placeholder.com/150" }}
-                  />
-                  <View style={styles.caseStatus}>
-                    <Text style={styles.statusText}>Active</Text>
+            {missingChildrenData.length > 0 ? (
+              missingChildrenData.map((item, index) => (
+                <TouchableOpacity key={item} style={styles.caseCard}>
+                  <View style={styles.caseImageContainer}>
+                    <Image style={styles.caseImage}  source={{ uri: item.image }} />
+                    {/* <View style={styles.caseStatus}>
+                      <Text style={styles.statusText}>{item.status}</Text>
+                    </View> */}
                   </View>
-                </View>
-                <Text style={styles.caseName}>John Doe</Text>
-                <Text style={styles.caseLocation}>Mumbai, MH</Text>
-                <Text style={styles.caseDate}>Last seen: 2 days ago</Text>
-              </TouchableOpacity>
-            ))}
+                  <Text style={styles.caseName}>{item.fullName}</Text>
+                  <Text style={styles.caseLocation}>Surat</Text>
+                  <Text style={styles.caseDate}>Last Seen: {item.lastLocation} on {item.lastSeenDate} at{" "}
+                  {item.lastSeenTime}</Text>
+                </TouchableOpacity>
+              ))
+            ) : (
+              <Text style={styles.noDataText}>
+                No missing children data available.
+              </Text>
+            )}
           </ScrollView>
         </View>
 
@@ -392,6 +412,15 @@ const styles = {
     marginTop: 4,
     color: "#666",
     textAlign: "center",
+  },
+  cardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 32,
+  },
+  cardWrapper: {
+    width: "33.33%",
+    padding: 8,
   },
 };
 
